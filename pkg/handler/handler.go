@@ -33,7 +33,7 @@ func HandleRequest(ctx context.Context, e events.SQSEvent) error {
 	db := common.DB{
 		Client:    awsclient.DynamoDB,
 		TableName: config.Params.DynamoDBTable,
-		Prefix:    "test",
+		Prefix:    config.Params.DynamoDBPrefix,
 	}
 	for _, p := range promocodes {
 		if err := db.Add(&p); err != nil {

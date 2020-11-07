@@ -16,7 +16,7 @@ var (
 type Configuration struct {
 	LogLevel       string
 	DynamoDBTable  string
-	DynamoDBItemID string
+	DynamoDBPrefix string
 }
 
 // New - initializes new configuration
@@ -26,7 +26,7 @@ func New() {
 	Params = Configuration{
 		LogLevel:       viper.GetString(vars.ParamLogLevelName),
 		DynamoDBTable:  viper.GetString(vars.ParamDynamoDBTableName),
-		DynamoDBItemID: viper.GetString(vars.ParamDynamoDBItemIDName),
+		DynamoDBPrefix: viper.GetString(vars.ParamDynamoDBPrefixName),
 	}
 }
 
@@ -35,7 +35,8 @@ func initViper() {
 	viper.SetDefault(vars.ParamLogLevelName, vars.ParamLogLevelDefault)
 
 	viper.BindEnv(vars.ParamDynamoDBTableName)
-	viper.BindEnv(vars.ParamDynamoDBItemIDName)
+	viper.BindEnv(vars.ParamDynamoDBPrefixName)
+	viper.SetDefault(vars.ParamDynamoDBPrefixName, vars.ParamDynamoDBPrefixDefault)
 
 	for _, param := range vars.RequiredParams {
 		if viper.GetString(param) == "" {
