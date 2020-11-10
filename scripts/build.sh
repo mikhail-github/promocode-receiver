@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-FUNCTION_NAME="receiver"
+FUNCTION_NAME="promocode-receiver"
 
 rm "${FUNCTION_NAME}.zip" "${FUNCTION_NAME}" || true
 
