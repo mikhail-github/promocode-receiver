@@ -15,6 +15,7 @@ EVENT='
 FUNCTION_NAME="receiver"
 DYNAMODB_TABLE="telegram-notifier-lambda-Table-UTE0466VLHR8"
 DYNAMODB_PREFIX="stage-"
+SENDER_QUEUE_URL="https://sqs.eu-west-1.amazonaws.com/869607576501/telegram-sender20201104094935267000000002"
 
 AWS_ACCESS_KEY_ID=""
 AWS_SECRET_ACCESS_KEY=""
@@ -33,6 +34,7 @@ docker run --rm \
     -e LOG_LEVEL="debug" \
     -e DYNAMODB_TABLE="${DYNAMODB_TABLE}" \
     -e DYNAMODB_PREFIX="${DYNAMODB_PREFIX}" \
+    -e SENDER_QUEUE_URL="${SENDER_QUEUE_URL}" \
     lambci/lambda:go1.x \
     "${FUNCTION_NAME}" "${EVENT}"
 
