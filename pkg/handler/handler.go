@@ -59,7 +59,6 @@ func HandleRequest(ctx context.Context, e events.SQSEvent) error {
 			log.Errorf("can not send promocode to subscribers: %s", err.Error())
 			return err
 		}
-
 	}
 
 	log.Info("Lambda Function finished successfully")
