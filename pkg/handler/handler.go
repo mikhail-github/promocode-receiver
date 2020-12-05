@@ -72,11 +72,11 @@ func sendUpdateToSubscribers(promo *common.Promocode) error {
 	}
 
 	var message senderCommon.Message
-	msg := tgbotapi.NewMessage(0, fmt.Sprintf(vars.NewPromocodeMessageText, promo.ShopID, promo.Data))
+	msg := tgbotapi.NewMessage(0, promoUpdateMessage(promo.ShopID))
 	message.Msg.MessageConfig = &msg
 
 	for _, s := range subscribers {
-		if s.NewPromoSubscription {
+		if s.NewPromoSubscription && !isIntInSlice(config.Params.BannedUsers, s.ID) {
 			message.Recipients = append(message.Recipients, s.ID)
 		}
 	}
@@ -100,4 +100,28 @@ func sendUpdateToSubscribers(promo *common.Promocode) error {
 	}
 
 	return nil
+}
+
+func promoUpdateMessage(shopID common.PromocodeShopID) string {
+	var link string
+	switch shopID {
+	case common.AdidasShopID:
+		link = config.Params.AdidasRefLink
+	case common.ReebokShopID:
+		link = config.Params.AdidasRefLink
+	default:
+		log.Panicf("Unknown shopID: %s", shopID)
+	}
+
+	return fmt.Sprintf(vars.NewPromocodeMessageText, shopID, link)
+}
+
+func isStrInSlice(s []string, i string) bool {
+	for _, v := range s {
+		if i == v {
+			return true
+		}
+	}
+
+	return false
 }
