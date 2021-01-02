@@ -108,7 +108,7 @@ func promoUpdateMessage(shopID common.PromocodeShopID) string {
 	case common.AdidasShopID:
 		link = config.Params.AdidasRefLink
 	case common.ReebokShopID:
-		link = config.Params.AdidasRefLink
+		link = config.Params.ReebokRefLink
 	default:
 		log.Panicf("Unknown shopID: %s", shopID)
 	}
@@ -116,7 +116,7 @@ func promoUpdateMessage(shopID common.PromocodeShopID) string {
 	return fmt.Sprintf(vars.NewPromocodeMessageText, shopID, link)
 }
 
-func isStrInSlice(s []string, i string) bool {
+func isIntInSlice(s []int64, i int64) bool {
 	for _, v := range s {
 		if i == v {
 			return true
