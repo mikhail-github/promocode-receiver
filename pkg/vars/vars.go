@@ -1,6 +1,7 @@
 package vars
 
 const (
+	VKPosterLambdaInvokationType = "Event"
 	// Common constants
 	NewPromocodeMessageText = `Появился новый промокод %s
 	Добавьте товары в корзину на сайте магазина, 
@@ -18,6 +19,7 @@ const (
 	ParamDynamoDBPrefixDefault = "test-"
 
 	ParamTelegramSenderQueueURLName = "SENDER_QUEUE_URL"
+	ParamVKPosterLambdaName         = "VKPOSTER_LAMBDA_NAME"
 
 	ParamAdidasRefLinkName = "ADIDAS_REFLINK"
 	ParamReebokRefLinkName = "REEBOK_REFLINK"
@@ -33,5 +35,6 @@ var (
 		ParamTelegramSenderQueueURLName,
 		ParamAdidasRefLinkName,
 		ParamReebokRefLinkName,
+		ParamVKPosterLambdaName,
 	}
 )

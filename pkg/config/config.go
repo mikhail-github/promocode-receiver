@@ -19,6 +19,7 @@ type Configuration struct {
 	DynamoDBTable          string
 	DynamoDBPrefix         string
 	TelegramSenderQueueURL string
+	VKPosterLambdaName     string
 	AdidasRefLink          string
 	ReebokRefLink          string
 	BannedUsers            []int64
@@ -38,6 +39,7 @@ func New() {
 		DynamoDBTable:          viper.GetString(vars.ParamDynamoDBTableName),
 		DynamoDBPrefix:         viper.GetString(vars.ParamDynamoDBPrefixName),
 		TelegramSenderQueueURL: viper.GetString(vars.ParamTelegramSenderQueueURLName),
+		VKPosterLambdaName:     viper.GetString(vars.ParamVKPosterLambdaName),
 		BannedUsers:            bannedUsers,
 		AdidasRefLink:          viper.GetString(vars.ParamAdidasRefLinkName),
 		ReebokRefLink:          viper.GetString(vars.ParamReebokRefLinkName),
@@ -52,6 +54,7 @@ func initViper() {
 	viper.BindEnv(vars.ParamDynamoDBPrefixName)
 	viper.SetDefault(vars.ParamDynamoDBPrefixName, vars.ParamDynamoDBPrefixDefault)
 	viper.BindEnv(vars.ParamTelegramSenderQueueURLName)
+	viper.BindEnv(vars.ParamVKPosterLambdaName)
 	viper.BindEnv(vars.ParamAdidasRefLinkName)
 	viper.BindEnv(vars.ParamReebokRefLinkName)
 	viper.BindEnv(vars.ParamBannedUsersName)

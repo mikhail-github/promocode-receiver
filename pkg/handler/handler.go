@@ -34,19 +34,19 @@ func HandleRequest(ctx context.Context, e events.SQSEvent) error {
 		promocodes = append(promocodes, p...)
 	}
 
-	awsclient, err := awswrapper.New()
+	c, err := awswrapper.New()
 	if err != nil {
 		log.Errorf("can't create aws api client: %s", err.Error())
 		return err
 	}
 
 	db := common.DB{
-		Client:    awsclient.DynamoDB,
+		Client:    c.DynamoDB,
 		TableName: config.Params.DynamoDBTable,
 		Prefix:    config.Params.DynamoDBPrefix,
 	}
 	SubscribersDB = subscribers.DB{
-		Client:    awsclient.DynamoDB,
+		Client:    c.DynamoDB,
 		TableName: config.Params.DynamoDBTable,
 		Prefix:    config.Params.DynamoDBPrefix,
 	}
@@ -59,6 +59,10 @@ func HandleRequest(ctx context.Context, e events.SQSEvent) error {
 			log.Errorf("can not send promocode to subscribers: %s", err.Error())
 			return err
 		}
+	}
+	if err := callVKPoster(c.Lambda, promocodes); err != nil {
+		log.Errorf("VK Poster invokation error: %s", err.Error())
+		return err
 	}
 
 	log.Info("Lambda Function finished successfully")
